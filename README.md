@@ -12,6 +12,12 @@ A new education app.
 
 - [Flutter SDK](https://flutter.dev/docs/get-started/install)
 
+## Technique
+- ### FrontEnd
+    - [Dart](https://dart.dev/)
+    - [Kotlin](https://kotlinlang.org/)
+    - [Swift](https://swift.org/)
+
 ## Getting Started
 - Open File &#8594; Setting
 - Search Flutter
