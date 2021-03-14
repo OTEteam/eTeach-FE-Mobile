@@ -4,9 +4,9 @@ A new education app.
 
 ## Important 
 
-`You need to install flutter SDK if you want to run this project.`
+- ***You need to install flutter SDK if you want to run this project.***
 
-***Recommend using flutter 2.0.2-stable***
+- ***Recommend using flutter 2.0.2-stable***
 
 ## Link to download flutter SDK
 
