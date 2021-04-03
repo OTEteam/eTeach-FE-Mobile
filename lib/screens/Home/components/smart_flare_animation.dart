@@ -11,15 +11,14 @@ class SmartFlareAnimation extends StatefulWidget {
 class _SmartFlareAnimationState extends State<SmartFlareAnimation> {
   final FlareControls animationControls = FlareControls();
 
-  AnimationToPlay _animationToPlay = AnimationToPlay.Deactivate;
   AnimationToPlay _lastPlayedAnimation;
 
-  static const double AnimationWidth = 275.0;
+  static const double AnimationWidth = 259.0;
   static const double AnimationHeight = 231.0;
 
   bool isOpen = false;
 
-  String _getAnimatonName(AnimationToPlay animationToPlay) {
+  String _getAnimationName(AnimationToPlay animationToPlay) {
     switch (animationToPlay) {
       case AnimationToPlay.Activate:
         return 'activate';
@@ -37,7 +36,15 @@ class _SmartFlareAnimationState extends State<SmartFlareAnimation> {
   }
 
   void _setAnimationToPlay(AnimationToPlay animation) {
-    animationControls.play(_getAnimatonName(animation));
+    var isTappedAnimation = _getAnimationName(animation).contains("_tapped");
+    if (isTappedAnimation &&
+        _lastPlayedAnimation == AnimationToPlay.Deactivate) {
+      return;
+    }
+
+    animationControls.play(_getAnimationName(animation));
+
+    _lastPlayedAnimation = animation;
   }
 
   @override
@@ -53,10 +60,10 @@ class _SmartFlareAnimationState extends State<SmartFlareAnimation> {
 
             // Position to touch
             var topHalfTouched = localTouchPosition.dy < AnimationHeight / 2;
-            var leftSideTouched = localTouchPosition.dy < AnimationWidth / 3;
+            var leftSideTouched = localTouchPosition.dx < AnimationWidth / 3;
             var rightSideTouched =
-                localTouchPosition.dy > (AnimationWidth / 3) * 2;
-            var middleTouched = localTouchPosition.dy < AnimationHeight / 3;
+                localTouchPosition.dx > (AnimationWidth / 3) * 2;
+            var middleTouched = !leftSideTouched && !rightSideTouched;
 
             if (leftSideTouched && topHalfTouched) {
               _setAnimationToPlay(AnimationToPlay.CameraTapped);
@@ -77,7 +84,7 @@ class _SmartFlareAnimationState extends State<SmartFlareAnimation> {
         child: FlareActor(
           'assets/flare/button-animation.flr',
           controller: animationControls,
-          animation: _getAnimatonName(_animationToPlay),
+          animation: 'deactivate',
         ),
       ),
     );
